@@ -12,75 +12,147 @@
       justify-content: center;
       font-family: 'Poppins', Arial, sans-serif;
       background: linear-gradient(135deg, #ff758f, #ffb3c6);
-    }
-    .box {
-      background: white;
-      padding: 30px 24px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 400px;
-      text-align: center;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
-    }
-    h1 {
-      color: #e03131;
-      margin-bottom: 10px;
-    }
-    p {
-      font-size: 1rem;
-      color: #333;
-      margin-bottom: 20px;
-    }
-    button {
-      border: none;
-      padding: 12px 20px;
-      border-radius: 30px;
-      font-size: 1rem;
-      cursor: pointer;
-      margin: 8px;
-      transition: 0.2s ease;
-    }
-    .yes {
-      background: #ff4d6d;
-      color: white;
-    }
-    .yes:hover { transform: scale(1.05); }
-    .no {
-      background: #dee2e6;
-      color: #333;
-    }
-    .message {
-      margin-top: 20px;
-      font-size: 1.1rem;
-      font-weight: 600;
-      display: none;
-    }
+      overflow: hidden;
+    }/* floating hearts */
+.heart {
+  position: absolute;
+  color: rgba(255,255,255,0.6);
+  font-size: 18px;
+  animation: float 6s infinite ease-in-out;
+}
+@keyframes float {
+  0% { transform: translateY(0); opacity: .4; }
+  50% { transform: translateY(-20px); opacity: .8; }
+  100% { transform: translateY(0); opacity: .4; }
+}
+
+.box {
+  background: white;
+  padding: 28px 22px;
+  border-radius: 22px;
+  width: 90%;
+  max-width: 420px;
+  text-align: center;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.25);
+  animation: popIn .6s ease;
+  position: relative;
+  z-index: 2;
+}
+@keyframes popIn {
+  from { transform: scale(.8); opacity: 0; }
+  to { transform: scale(1); opacity: 1; }
+}
+
+h1 {
+  color: #e03131;
+  margin-bottom: 10px;
+}
+p {
+  font-size: 1rem;
+  color: #333;
+  margin-bottom: 16px;
+}
+
+.photos {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+.photos img {
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid #ff4d6d;
+  animation: pulse 2.5s infinite;
+}
+@keyframes pulse {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+
+button {
+  border: none;
+  padding: 12px 20px;
+  border-radius: 30px;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 8px;
+  transition: 0.2s ease;
+}
+.yes {
+  background: #ff4d6d;
+  color: white;
+}
+.yes:hover { transform: scale(1.08); }
+.no {
+  background: #dee2e6;
+  color: #333;
+}
+
+.message {
+  margin-top: 18px;
+  font-size: 1.05rem;
+  font-weight: 600;
+}
+
   </style>
 </head>
-<body>
-  <div class="box">
-    <h1>Hey Tomisin 💖</h1>
-    <p>
-      You make my days brighter and my heart calmer.
-      I just want to ask you one important question…
-    </p>
-    <h1>Will you be my Valentine? 🌹</h1><button class="yes" onclick="yesClick()">Yes ❤️</button>
+<body>  <!-- floating hearts -->  <div class="heart" style="top:10%; left:15%">❤️</div>
+  <div class="heart" style="top:20%; right:20%">💖</div>
+  <div class="heart" style="bottom:15%; left:25%">💕</div>
+  <div class="heart" style="bottom:10%; right:15%">💗</div>  <div class="box">
+    <h1 id="title">Hey Tomisin 💖</h1><div class="photos">
+  <!-- replace these image links with your own photos -->
+  <img src="https://i.imgur.com/8Km9tLL.jpg" alt="Us">
+  <img src="https://i.imgur.com/2yaf2wb.jpg" alt="Us">
+  <img src="https://i.imgur.com/Qr6Y0kC.jpg" alt="Us">
+</div>
+
+<p id="text">
+  You came into my life quietly, but you changed it beautifully.
+  So I just want to ask you one important question…
+</p>
+<h1 id="question">Will you be my Valentine? 🌹</h1>
+
+<button class="yes" onclick="yesClick()">Yes ❤️</button>
 <button class="no" onclick="noClick()">No 🙈</button>
 
 <div class="message" id="msg"></div>
 
   </div>  <script>
+    let noCount = 0;
+    const noMessages = [
+      'Are you sure? 🥺',
+      'Like… really sure? 🥹',
+      'Think about us a little 🫶🏽',
+      'Okay but what if I ask nicely? 🥰',
+      'Last chance… my heart is involved ❤️'
+    ];
+
     function yesClick() {
-      const m = document.getElementById('msg');
-      m.style.display = 'block';
-      m.style.color = '#e03131';
-      m.innerHTML = 'Yayyy 🥹❤️ I can’t wait to spend Valentine with you, Tomisin.';
+      document.getElementById('title').innerText = 'My Love 💕';
+      document.getElementById('question').innerText = 'Thank You for Choosing Me ❤️';
+      document.getElementById('text').innerText =
+        'From the day we started talking, you brought laughter, peace, and love into my life. ' +
+        'Being with you has taught me patience, care, and what it truly means to love someone. ' +
+        'Thank you for coming into my life, Tomisin. I love you so much, always.';
+
+      document.getElementById('msg').innerText = 'Happy Valentine’s Day, my heart 🌹';
+      document.querySelector('.yes').style.display = 'none';
+      document.querySelector('.no').style.display = 'none';
     }
+
     function noClick() {
-      const m = document.getElementById('msg');
-      m.style.display = 'block';
-      m.style.color = '#495057';
-      m.innerHTML = 'Still love you regardless 🤍';
+      const msg = document.getElementById('msg');
+      if (noCount < noMessages.length) {
+        msg.innerText = noMessages[noCount];
+        noCount++;
+      } else {
+        msg.innerText = 'Okay… but just know I still choose you every day 🤍';
+      }
     }
   </script></body>
 </html>
